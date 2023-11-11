@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados</title>
+    <!-- Utilizando la CDN de Bootstrap en tu archivo HTML -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body class="bg-light">
+	<a href="/" class="list-group-item list-group-item-action">Inicio</a>
+    <div class="container ">
+    <h2 class="text-primary m-5">Resultados de la Operación</h2>
+    <div th:if="${operacion == 'primos'} " class=" m-5"> 
+        <h3>Números Primos entre [[${inicio}]] y [[${fin}]]</h3>
+        <ul class="list-group">
+            <li th:each="primo : ${numerosPrimos}" class="list-group-item" th:text="${primo}"></li>
+        </ul>
+    </div>
+
+    <div th:if="${operacion == 'error'}" class="alert alert-danger">
+        <h3>Error: Operación no válida</h3>
+    </div>
+</div>
+
+
+</body>
+</html>

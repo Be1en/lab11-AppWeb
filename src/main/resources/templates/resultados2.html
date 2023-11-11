@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados</title>
+
+    <!-- Agrega las referencias a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+	<a href="/" class="list-group-item list-group-item-action">Inicio</a>
+	<div class="container m-5">
+    <h2 class=" text-primary mb-4">Resultados de la Operación</h2>
+
+    <div th:if="${operacion == 'tabla'}" class="mb-5">
+        <h3 class="mb-3">Tabla de Multiplicar para el número [[${inicio}]]</h3>
+        <form action="/guardar" method="post">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Multiplicación</th>
+                        <th>Resultado</th>
+                        <th>Es Par</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="resultado : ${resultadosTabla}">
+                        <td th:text="${#strings.concat(inicio, ' x ', resultado.resultado div inicio)}"></td>
+                        <td th:text="${resultado.resultado}"></td>
+                        <td th:text="${resultado.esPar} ? 'Sí' : 'No'"></td>
+                        <td>
+                            <!-- Ajuste para marcar el checkbox por defecto si es par -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="seleccionados" th:value="${resultado.resultado}" th:checked="${resultado.esPar}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Guardar Selección</button>
+        </form>
+    </div>
+</div>
+    <div th:if="${operacion == 'error'}" class="alert alert-danger">
+        <h3>Error: Operación no válida</h3>
+    </div>
+
+    <!-- Agrega las referencias a Bootstrap JS y jQuery (opcional) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
